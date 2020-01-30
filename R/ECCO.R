@@ -19,7 +19,7 @@
 #' @param gene_name a vector containg the names of all genes
 #' @param geno a matrix containg all the cis-SNPs of the analyzed gene
 #' @param ind the index of the gene
-#' @return \item{iv_snp} the snp that has the strongest association with the gene
+#' @return \item{iv_snp} {the snp that has the strongest association with the gene}
 #' @author Yue Fan, Shiquan Sun, Xiang Zhou
 #' @examples
 #' data(exampledata)
@@ -85,11 +85,11 @@ ecco0 <- function(gene,genename,gene_name,geno,ind) {
 #' @param gene_name a vector containg the names of all genes
 #' @param iv_snp the instrumental variable, produced from ecco0
 #' @param peer the number of peer factors to be examined
-#' @return \item{Gene} the name of the gene
-#' @return \item{PEER} the number of PEER factors
-#' @return \item{p-value} the p-value of alpha
-#' @return \item{beta_hat} the estimation of beta from MR model
-#' @return \item{beta_tilde} the estimation of beta from DE model
+#' @return \item{Gene}{the name of the gene}
+#' @return \item{PEER} {the number of PEER factors}
+#' @return \item{p-value}{the p-value of alpha}
+#' @return \item{beta_hat} {the estimation of beta from MR model}
+#' @return \item{beta_tilde} {the estimation of beta from DE model}
 #' @examples
 #' data(exampledata)
 #' attach(exampledata)
