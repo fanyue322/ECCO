@@ -20,13 +20,13 @@ ecco(pheno, gene, gene_name, iv_snp, peer)
 \value{
 \item{Gene}{the name of the gene}
 
-\item{PEER} {the number of PEER factors}
+\item{PEER}{the number of PEER factors}
 
 \item{p-value}{the p-value of alpha}
 
-\item{beta_hat} {the estimation of beta from MR model}
+\item{beta_hat}{the estimation of beta from MR model}
 
-\item{beta_tilde} {the estimation of beta from DE model}
+\item{beta_tilde}{the estimation of beta from DE model}
 }
 \description{
 Determining the optimal number of PEER factors for eQTL mapping analysis through DE and MR analysis

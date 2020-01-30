@@ -18,7 +18,7 @@ ecco0(gene, genename, gene_name, geno, ind)
 \item{ind}{the index of the gene}
 }
 \value{
-\item{iv_snp} {the snp that has the strongest association with the gene}
+\item{iv_snp}{the snp that has the strongest association with the gene}
 }
 \description{
 Determining the optimal number of PEER factors for eQTL mapping analysis through DE and MR analysis
