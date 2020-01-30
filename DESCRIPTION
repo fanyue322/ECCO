@@ -1,0 +1,11 @@
+Package: ECCO
+Title: Controlling for Confounding Effects in eQTL Mapping Studies through Joint Differential Expression and Mendelian Randomization Analyses
+Version: 1.0
+Date: 2020-01-20
+Author: Yue Fan, Xiang Zhou
+Maintainer: Yue Fan <xafanyue@163.com>
+Encoding: UTF-8
+License: GPL (>= 2)
+Depends: R (>= 3.5.0)
+LazyData: true
+RoxygenNote: 7.0.2
