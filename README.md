@@ -7,7 +7,7 @@ ECCO is implemented as an R package, which can be installed from GitHub.
 ####  Install from GitHub
 ```
 library(devtools)
-install_github("3211895/ECCO")
+install_github("fanyue322/ECCO")
 ```
 # Usage
 The main functions are ecco and ecco0. You can find the instructions and an example by '?ecco' and '?ecco0'.
