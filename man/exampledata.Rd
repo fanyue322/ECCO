@@ -20,4 +20,41 @@ data(exampledata)
 A simulated example dataset of ECCO.
 The variables are as follows:
 }
+\examples{
+data(exampledata)
+attach(exampledata)
+N=length(gene_name)
+iv_snp=c()
+for(ind in 1:N)
+{
+tryCatch({
+ gene=M_matrix[,ind]
+ geno=snp_raw[[ind]]
+ genename=gene_name[ind]
+ ivsnp=ecco0(gene,genename,gene_name,geno,ind)
+ iv_snp=rbind(iv_snp,ivsnp)
+ },
+ error=function(e){})
+ }
+ res=c()
+ summary_total
+ for(num_peer in 1:length(peerlist))
+ {
+  tryCatch({
+  pheno=Y
+  gene=M_matrix
+  geno=snp_raw
+  gene_name=gene_name
+  peerlist=c(1,2,5)
+  summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+  },
+  error=function(e){})
+  summary_total=rbind(summary_total,summary)
+  res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
+  }
+  res=data.frame(res)
+  optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
+closeAllConnections()
+detach(exampledata)
+}
 \keyword{datasets}

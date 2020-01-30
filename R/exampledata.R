@@ -27,15 +27,16 @@
 #'  gene=M_matrix[,ind]
 #'  geno=snp_raw[[ind]]
 #'  genename=gene_name[ind]
-#'  ivsnp=codec0(gene,genename,gene_name,geno,ind)
+#'  ivsnp=ecco0(gene,genename,gene_name,geno,ind)
 #'  iv_snp=rbind(iv_snp,ivsnp)
 #'  },
 #'  error=function(e){})
 #'  }
-#'  summary_total=c()
+#'  res=c()
+#'  summary_total
 #'  for(num_peer in 1:length(peerlist))
 #'  {
-#'   tryCatch({}
+#'   tryCatch({
 #'   pheno=Y
 #'   gene=M_matrix
 #'   geno=snp_raw
@@ -45,7 +46,10 @@
 #'   },
 #'   error=function(e){})
 #'   summary_total=rbind(summary_total,summary)
+#'   res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
 #'   }
+#'   res=data.frame(res)
+#'   optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 #' closeAllConnections()
 #' detach(exampledata)
 "exampledata"
