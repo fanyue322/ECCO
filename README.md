@@ -57,7 +57,9 @@ error=function(e){})
 summary_total=rbind(summary_total,summary)
 res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
 }
-
+res=data.frame(res)
+optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
+```
 
 ## Our group
 
