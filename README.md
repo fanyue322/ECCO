@@ -25,9 +25,9 @@ ivsnp=ecco0(gene,genename,gene_name,geno,ind)
 num_peer=1
 summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 ```
-Running the pipeline：
+### Running the pipeline：
 
-# 1）Calculate
+#### 1）Calculate
 
 A toy example for testing purposes only:
 ```
