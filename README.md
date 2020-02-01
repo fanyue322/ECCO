@@ -61,6 +61,7 @@ res=data.frame(res)
 optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 ```
 # Results reproduced
+All results from all methods used in the ECCO paper can be reproduced at 
  <https://github.com/fanyue322/ECCOreproduce>.
 
 ## Our group
