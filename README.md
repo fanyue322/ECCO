@@ -29,8 +29,9 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 
 #### 1）Calculate the gene expression residuals with PEER package
 ```
+# Input: dt is the gene expression data, an N*P matrix
   model = PEER()
-  PEER_setPhenoMean(model,as.matrix(dt)) ####  dt is the gene expression data, an N*P matrix
+  PEER_setPhenoMean(model,as.matrix(dt)) 
   dim(PEER_getPhenoMean(model))
 
   PEER_setAdd_mean(model, TRUE)
