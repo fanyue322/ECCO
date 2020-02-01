@@ -27,8 +27,34 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 ```
 ### Running the pipeline：
 
-#### 1）Calculate
+#### 1）Calculate the gene expression residuals with PEER package
+```
+  model = PEER()
+  PEER_setPhenoMean(model,as.matrix(dt)) ####  dt is the gene expression data, an N*P matrix
+  dim(PEER_getPhenoMean(model))
 
+  PEER_setAdd_mean(model, TRUE)
+  PEER_setNk(model,pc)  ## pc hidden confounders
+  PEER_getNk(model)
+
+  PEER_update(model)
+  #PEER_setNMax_iterations(model, 10000)
+
+  factors = PEER_getX(model)
+  factors=factors[,-1]
+  #dim(factors)
+  residuals = PEER_getResiduals(model)
+  write.table(residuals, paste(tissue,'_peer', pc, ".txt", sep=""), quote=F, col.names=F, row.names=F)
+
+```
+#### 2）Select the cis-SNP with ecco0
+```
+
+```
+
+
+#### 3）Select the cis-SNP with ecco0
+```
 A toy example for testing purposes only:
 ```
 data(exampledata)
