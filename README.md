@@ -29,21 +29,16 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 
 #### 1）Calculate the gene expression residuals with PEER package
 ```
-# Input: dt is the gene expression data, an N*P matrix
+# Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be removed
   model = PEER()
   PEER_setPhenoMean(model,as.matrix(dt)) 
   dim(PEER_getPhenoMean(model))
-
   PEER_setAdd_mean(model, TRUE)
-  PEER_setNk(model,pc)  ## pc hidden confounders
+  PEER_setNk(model,peer)   
   PEER_getNk(model)
-
   PEER_update(model)
-  #PEER_setNMax_iterations(model, 10000)
-
   factors = PEER_getX(model)
   factors=factors[,-1]
-  #dim(factors)
   residuals = PEER_getResiduals(model)
   write.table(residuals, paste(tissue,'_peer', pc, ".txt", sep=""), quote=F, col.names=F, row.names=F)
 
