@@ -25,6 +25,10 @@ ivsnp=ecco0(gene,genename,gene_name,geno,ind)
 num_peer=1
 summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 ```
+Running the pipeline：
+
+# 1）Calculate
+
 A toy example for testing purposes only:
 ```
 data(exampledata)
@@ -60,6 +64,8 @@ res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[nu
 res=data.frame(res)
 optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 ```
+
+
 # Results reproduced
 All results from all methods used in the ECCO paper can be reproduced at 
  <https://github.com/fanyue322/ECCOreproduce>.
