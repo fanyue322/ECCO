@@ -12,7 +12,7 @@ install_github("fanyue322/ECCO")
 # Usage
 The main functions are ecco and ecco0. You can find the instructions and an example by '?ecco' and '?ecco0'.
 
-##Example
+# Example
 ```
 data(exampledata)
 attach(exampledata)
@@ -60,6 +60,8 @@ res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[nu
 res=data.frame(res)
 optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 ```
+# Results reproduced
+ <https://github.com/fanyue322/ECCOreproduce>.
 
 ## Our group
 
