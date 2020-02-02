@@ -27,10 +27,15 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 
 output format for ecco:
 Gene   PEER p-value beta_hat beta_tilde
+
 gene1    1    ..       ..        ..
+
 gene2    1    ..       ..        ..
+
 ...
+
 ```
+
 ### Running the pipeline：
 
 #### 1）Calculate the gene expression residuals with PEER package
