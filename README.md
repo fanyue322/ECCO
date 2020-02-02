@@ -27,23 +27,19 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
 
 output format for ecco:
 Gene   PEER p-value beta_hat beta_tilde
-
 gene1    1    ..       ..        ..
-
 gene2    1    ..       ..        ..
-
 ...
-
 ```
 
 ### Running the pipeline：
 
 #### 1）Calculate the gene expression residuals with PEER package
+```
 Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be remove
 Geneid   PEER p-value beta_hat beta_tilde
 gene1     1    ..       ..        ..
 gene2     1    ..       ..        ..
-```
   model = PEER()
   PEER_setPhenoMean(model,as.matrix(dt)) 
   dim(PEER_getPhenoMean(model))
@@ -58,6 +54,7 @@ gene2     1    ..       ..        ..
 #Output: the gene expression residuals, an N*P matrix
 ```
 #### 2）Select the cis-SNP with ecco0
+```
 gene expression data format:
 Geneid gene1 gene2 . . .
 indiv1  4.91 4.63 . . .
@@ -69,7 +66,6 @@ snp1     1     0    ...
 snp2     0     2    ...
 . . . . . . . . 
 
-```
 iv_snp=c()
   for (ind in 1:P) {
     tryCatch({
