@@ -24,6 +24,12 @@ ivsnp=ecco0(gene,genename,gene_name,geno,ind)
 
 num_peer=1
 summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
+
+output format for ecco:
+Gene   PEER p-value beta_hat beta_tilde
+gene1    1    ..       ..        ..
+gene2    1    ..       ..        ..
+...
 ```
 ### Running the pipeline：
 
