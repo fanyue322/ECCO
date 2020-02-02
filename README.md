@@ -37,9 +37,10 @@ gene2    1    ..       ..        ..
 #### 1）Calculate the gene expression residuals with PEER package
 ```
 Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be remove
-Geneid   PEER p-value beta_hat beta_tilde
-gene1     1    ..       ..        ..
-gene2     1    ..       ..        ..
+Geneid gene1 gene2 . . .
+indiv1  4.91 4.63 . . .
+indiv2  13.78 13.14 . . .
+. . . . . . . . . . . .
   model = PEER()
   PEER_setPhenoMean(model,as.matrix(dt)) 
   dim(PEER_getPhenoMean(model))
