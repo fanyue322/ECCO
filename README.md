@@ -131,7 +131,7 @@ res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[nu
 res=data.frame(res)
 optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 ```
-
+![IMAGE](https://github.com/fanyue322/fanyue322.github.io/blob/master/web.png "IMAGE logo")  
 
 # Results reproduced
 All results from all methods used in the ECCO paper can be reproduced at 
