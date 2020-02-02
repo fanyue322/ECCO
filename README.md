@@ -41,15 +41,26 @@ summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,num_peer)
   factors=factors[,-1]
   residuals = PEER_getResiduals(model)
   write.table(residuals, paste(tissue,'_peer', pc, ".txt", sep=""), quote=F, col.names=F, row.names=F)
-
+#Output: the gene expression residuals, an N*P matrix
 ```
 #### 2）Select the cis-SNP with ecco0
 ```
-
+# Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be removed
+iv_snp=c()
+  for (ind in 1:P) {
+    tryCatch({
+      gene <- M_matrix[ind,]
+      ivsnp=ecco0(gene,genename,gene_name,geno,ind)
+      iv_snp=rbind(iv_snp,ivsnp)
+          },
+    error=function(e){})
+    print (ind)
+  }
+  save(iv_snp,file=paste0("./cissnp/",tissue,"/",chr,".RData")) 
+#Output: a matrix containing the cis-SNPs for all P genes
 ```
-
-
-#### 3）Select the cis-SNP with ecco0
+#### 3）Determine the optimal number of PEER factors with ecco
+```
 ```
 A toy example for testing purposes only:
 ```
