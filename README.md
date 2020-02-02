@@ -34,8 +34,11 @@ gene2    1    ..       ..        ..
 ### Running the pipeline：
 
 #### 1）Calculate the gene expression residuals with PEER package
+Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be remove
+Gene   PEER p-value beta_hat beta_tilde
+gene1    1    ..       ..        ..
+gene2    1    ..       ..        ..
 ```
-# Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be removed
   model = PEER()
   PEER_setPhenoMean(model,as.matrix(dt)) 
   dim(PEER_getPhenoMean(model))
@@ -51,7 +54,6 @@ gene2    1    ..       ..        ..
 ```
 #### 2）Select the cis-SNP with ecco0
 ```
-# Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be removed
 iv_snp=c()
   for (ind in 1:P) {
     tryCatch({
