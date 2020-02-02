@@ -35,9 +35,9 @@ gene2    1    ..       ..        ..
 
 #### 1）Calculate the gene expression residuals with PEER package
 Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be remove
-Gene   PEER p-value beta_hat beta_tilde
-gene1    1    ..       ..        ..
-gene2    1    ..       ..        ..
+Geneid   PEER p-value beta_hat beta_tilde
+gene1     1    ..       ..        ..
+gene2     1    ..       ..        ..
 ```
   model = PEER()
   PEER_setPhenoMean(model,as.matrix(dt)) 
@@ -53,6 +53,17 @@ gene2    1    ..       ..        ..
 #Output: the gene expression residuals, an N*P matrix
 ```
 #### 2）Select the cis-SNP with ecco0
+gene expression data format:
+Geneid gene1 gene2 . . .
+indiv1  4.91 4.63 . . .
+indiv2  13.78 13.14 . . .
+. . . . . . . . . . . .
+genotype data format
+snpid indiv1 indiv2 ...
+snp1     1     0    ...
+snp2     0     2    ...
+. . . . . . . . 
+
 ```
 iv_snp=c()
   for (ind in 1:P) {
