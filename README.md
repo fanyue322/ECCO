@@ -50,6 +50,7 @@ iv_snp=c()
   for (ind in 1:P) {
     tryCatch({
       gene <- M_matrix[ind,]
+      #geno is a P*N matrix containing all the cis-SNPs for the ind th gene
       ivsnp=ecco0(gene,genename,gene_name,geno,ind)
       iv_snp=rbind(iv_snp,ivsnp)
           },
@@ -61,6 +62,18 @@ iv_snp=c()
 ```
 #### 3）Determine the optimal number of PEER factors with ecco
 ```
+peerlist=c(0,1,2,5,10,15,20,30,40,50,60,70,80,90,100)
+for(num_peer in 1:length(peerlist))
+{
+tryCatch({
+summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+},
+error=function(e){})
+summary_total=rbind(summary_total,summary)
+res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
+}
+res=data.frame(res)
+optimal_num_peer=res[which(res[,1]==max(res[,1])),2]
 ```
 A toy example for testing purposes only:
 ```
