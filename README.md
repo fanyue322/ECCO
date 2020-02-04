@@ -140,6 +140,7 @@ All results from all methods used in the ECCO paper can be reproduced at
 # GTEx eQTL mapping results
 The GTEx eQTL　mapping results are hosting at
 <https://github.com/fanyue322/ECCOreproduce/tree/master/eQTL_mapping_results>
+
 Details in [here](https://github.com/fanyue322/ECCOreproduce)
 
 ## Our group
