@@ -9,6 +9,14 @@ ECCO is implemented as an R package, which can be installed from GitHub.
 library(devtools)
 install_github("fanyue322/ECCO")
 ```
+ECCO is depending on MatrixEQTL and TwoSampleMR, please install these two packages first.
+
+###
+```
+devtools::install_github("MRCIEU/TwoSampleMR")
+install.packages('MatrixEQTL')
+```
+
 # Usage
 The main functions are ecco and ecco0. You can find the instructions and an example by '?ecco' and '?ecco0'.
 
