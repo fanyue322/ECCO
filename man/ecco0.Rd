@@ -16,9 +16,13 @@ ecco0(gene, genename, gene_name, geno, ind, Y)
 \item{geno}{a matrix containg all the cis-SNPs of the analyzed gene}
 
 \item{ind}{the index of the gene}
+
+\item{Y}{the phenotype data}
 }
 \value{
 \item{iv_snp}{the snp that has the strongest association with the gene}
+
+
 }
 \description{
 Determining the optimal number of PEER factors for eQTL mapping analysis through DE and MR analysis

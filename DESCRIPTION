@@ -4,15 +4,12 @@ Version: 1.0
 Date: 2020-06-20
 Author: Yue Fan, Xiang Zhou
 Maintainer: Yue Fan <xafanyue@163.com>
+Description: ECCO is implemented as an open source R package for determining the optimal number of PEER factors in eQTL mapping studies.
 Encoding: UTF-8
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 LazyData: true
 RoxygenNote: 7.1.0
-Suggests: 
-    knitr,
-    rmarkdown
-VignetteBuilder: knitr
 Imports: 
     TwoSampleMR,
     MatrixEQTL

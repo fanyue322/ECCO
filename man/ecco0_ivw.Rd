@@ -17,12 +17,16 @@ ecco0_ivw(gene, genename, gene_name, geno, ind, Y, r2 = 0.1, kb = 1)
 
 \item{ind}{the index of the gene}
 
+\item{Y}{the phenotype data}
+
 \item{r2}{clumping r2 cutoff, default is 0.1}
 
 \item{kb}{clumping window, default is 1}
 }
 \value{
 \item{iv_snp}{the snp that has the strongest association with the gene}
+
+
 }
 \description{
 Determining the optimal number of PEER factors for eQTL mapping analysis through DE and MR analysis
@@ -37,7 +41,7 @@ ind=1
 genename=gene_name[ind]
 gene=M_matrix[,ind]
 geno=snp_raw_ivw[[ind]]
-ivsnp=ecco0_ivw(gene,genename,gene_name,geno,ind)
+result=ecco0_ivw(gene,genename,gene_name,geno,ind,Y)
 closeAllConnections()
 detach(exampledata)
 }

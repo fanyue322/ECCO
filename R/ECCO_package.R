@@ -3,6 +3,6 @@
 #' @import TwoSampleMR
 #' @export ecco0
 #' @export ecco
-#' @export ecco0-ivw
+#' @export ecco0_ivw
 NULL
 

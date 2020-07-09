@@ -16,6 +16,8 @@ ecco(pheno, gene, gene_name, iv_snp, peer, summary)
 \item{iv_snp}{the instrumental variable, produced from ecco0}
 
 \item{peer}{the number of peer factors to be examined}
+
+\item{summary}{the effect size estiamted when the number of PEER is 0, produced from ecco0 or ecc0_ivw}
 }
 \value{
 \item{Gene}{the name of the gene}
@@ -38,7 +40,7 @@ Instead of performing repetitive eQTL mapping, ECCO jointly applies differential
 data(exampledata)
 attach(exampledata)
 num_peer=1
- summary<-ecco(Y,peer[[num_peer]],gene_name,iv_snp,num_peer)
+summary<-ecco(Y,peer[[num_peer]],gene_name,iv_snp,num_peer,summary)
 closeAllConnections()
 detach(exampledata)
 }

@@ -19,7 +19,9 @@
 #' @param gene_name a vector containg the names of all genes
 #' @param geno a matrix containg all the cis-SNPs of the analyzed gene
 #' @param ind the index of the gene
+#' @param Y the phenotype data
 #' @return \item{iv_snp}{the snp that has the strongest association with the gene}
+#' @return \item{summary]{the effect size estiamted when the number of PEER is 0}
 #' @author Yue Fan, Shiquan Sun, Xiang Zhou
 #' @examples
 #' data(exampledata)
@@ -94,9 +96,11 @@ ecco0 <- function(gene,genename,gene_name,geno,ind,Y) {
 #' @param gene_name a vector containg the names of all genes
 #' @param geno a matrix containg all the cis-SNPs of the analyzed gene
 #' @param ind the index of the gene
+#' @param Y the phenotype data
 #' @param r2 clumping r2 cutoff, default is 0.1
 #' @param kb clumping window, default is 1
 #' @return \item{iv_snp}{the snp that has the strongest association with the gene}
+#' @return \item{summary]{the effect size estiamted when the number of PEER is 0}
 #' @author Yue Fan, Xiang Zhou
 #' @examples
 #' data(exampledata)
@@ -105,7 +109,7 @@ ecco0 <- function(gene,genename,gene_name,geno,ind,Y) {
 #' genename=gene_name[ind]
 #' gene=M_matrix[,ind]
 #' geno=snp_raw_ivw[[ind]]
-#' ivsnp=ecco0_ivw(gene,genename,gene_name,geno,ind)
+#' result=ecco0_ivw(gene,genename,gene_name,geno,ind,Y)
 #' closeAllConnections()
 #' detach(exampledata)
 ecco0_ivw <- function(gene,genename,gene_name,geno,ind,Y,r2=0.1,kb=1) {
@@ -177,13 +181,13 @@ ecco0_ivw <- function(gene,genename,gene_name,geno,ind,Y,r2=0.1,kb=1) {
     summary_statistic=c()
     for(i in 1:num_snp)
     {
-      l1 <- lm(M ~ A[onesnp[i],])
+      l1 <- lm(t(M) ~ A[onesnp[i],])
       l3 <- lm(Y ~  A[onesnp[i],])
       summary_statistic=rbind(summary_statistic,c(summary(l1)$coeff[2,1],summary(l3)$coeff[2,1],summary(l1)$coeff[2,2],summary(l3)$coeff[2,2]))
     }
     IVW=mr_ivw(summary_statistic[,1],summary_statistic[,2],summary_statistic[,3],summary_statistic[,4])
-    l2 <- lm(Y ~ M)
-    lf<-lm(M~t(A[onesnp,]))
+    l2 <- lm(Y ~ t(M))
+    lf<-lm(t(M)~t(A[onesnp,]))
     pve_g=sum(summary(lf)$coeff[2:6,1]^2*apply(A[onesnp,],1,var))/var(M)
     Fstat=pve_g*(samplesize-num_snp-1)/num_snp*(1-pve_g)
     summary <- data.frame(Gene=genename,PEER=0, Fstat=Fstat, beta_tilde=IVW$b, beta_hat=summary(l2)$coeff[2,1])
@@ -206,6 +210,7 @@ ecco0_ivw <- function(gene,genename,gene_name,geno,ind,Y,r2=0.1,kb=1) {
 #' @param gene_name a vector containg the names of all genes
 #' @param iv_snp the instrumental variable, produced from ecco0
 #' @param peer the number of peer factors to be examined
+#' @param summary the effect size estiamted when the number of PEER is 0, produced from ecco0 or ecc0_ivw
 #' @return \item{Gene}{the name of the gene}
 #' @return \item{PEER}{the number of PEER factors}
 #' @return \item{p-value}{the p-value of alpha}
@@ -215,7 +220,7 @@ ecco0_ivw <- function(gene,genename,gene_name,geno,ind,Y,r2=0.1,kb=1) {
 #' data(exampledata)
 #' attach(exampledata)
 #' num_peer=1
-#'  summary<-ecco(Y,peer[[num_peer]],gene_name,iv_snp,num_peer)
+#' summary<-ecco(Y,peer[[num_peer]],gene_name,iv_snp,num_peer,summary)
 #' closeAllConnections()
 #' detach(exampledata)
 
