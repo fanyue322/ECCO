@@ -79,9 +79,11 @@ iv_snp=c()
   for (ind in 1:P) {
     tryCatch({
       gene <- M_matrix[ind,]
+      genename=gene_name[ind]
       #geno is a P*N matrix containing all the cis-SNPs for the ind th gene
-      ivsnp=ecco0(gene,genename,gene_name,geno,ind)
-      iv_snp=rbind(iv_snp,ivsnp)
+      result=ecco0(gene,genename,gene_name,geno,ind,Y)
+      iv_snp=rbind(iv_snp,result$iv_snp)
+      summary=rbind(summary,result$summary)
           },
     error=function(e){})
     print (ind)
@@ -95,7 +97,7 @@ peerlist=c(0,1,2,5,10,15,20,30,40,50,60,70,80,90,100)
 for(num_peer in 1:length(peerlist))
 {
 tryCatch({
-summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+summary<-ecco(Y,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer],summary)
 },
 error=function(e){})
 summary_total=rbind(summary_total,summary)
@@ -110,27 +112,29 @@ data(exampledata)
 attach(exampledata)
 N=length(gene_name)
 iv_snp=c()
+summary0=c()
 for(ind in 1:N)
 {
 tryCatch({
 gene=M_matrix[,ind]
 geno=snp_raw[[ind]]
 genename=gene_name[ind]
-ivsnp=ecco0(gene,genename,gene_name,geno,ind)
-iv_snp=rbind(iv_snp,ivsnp)
+result=ecco0(gene,genename,gene_name,geno,ind,Y)
+iv_snp=rbind(iv_snp,result$iv_snp)
+summary0=rbind(summary0,result$summary)
 },
 error=function(e){})
 }
 res=c()
+summary_total=summary0
 for(num_peer in 1:length(peerlist))
 {
 tryCatch({
 pheno=Y
 gene=M_matrix
-geno=snp_raw
 gene_name=gene_name
 peerlist=c(1,2,5)
-summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+summary<-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer],summary0)
 },
 error=function(e){})
 summary_total=rbind(summary_total,summary)
