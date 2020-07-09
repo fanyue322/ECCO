@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Yue Fan and Xiang Zhou" />
+
+<meta name="date" content="2020-06-02" />
+
+<title>Efficient and Effective Control of Confounding in eQTL Mapping Studies through Joint Differential Expression and Mendelian Randomization Analyses</title>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Efficient and Effective Control of Confounding in eQTL Mapping Studies through Joint Differential Expression and Mendelian Randomization Analyses</h1>
+<h4 class="author">Yue Fan and Xiang Zhou</h4>
+<h4 class="date">2020-06-02</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This vignette provides an introduction to the ECCO package. R package ECCO implements ECCO, an alternative way to determine the optimal number of PEER factors used for eQTL mapping studies. The package can be installed with the following commands:</p>
+<pre><code>library(devtools)
+install_github(&quot;fanyue322/ECCO&quot;)</code></pre>
+<p>Load the package using the following command:</p>
+<pre><code>library(ECCO)</code></pre>
+</div>
+<div id="calculate-the-gene-expression-residuals-with-peer-pacakge" class="section level2">
+<h2>Calculate the gene expression residuals with PEER pacakge</h2>
+<p>Input: the gene expression data dt, an N*P matrix; peer, the number of PEER factors to be remove</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Geneid</th>
+<th align="center">Gene1</th>
+<th>Gene2</th>
+<th align="center">..</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">indiv1</td>
+<td align="center">4.91</td>
+<td>4.63</td>
+<td align="center">..</td>
+</tr>
+<tr class="even">
+<td align="center">indiv2</td>
+<td align="center">13.78</td>
+<td>13.14</td>
+<td align="center">..</td>
+</tr>
+<tr class="odd">
+<td align="center">..</td>
+<td align="center">..</td>
+<td>..</td>
+<td align="center">..</td>
+</tr>
+</tbody>
+</table>
+<pre><code>library(peer)  ## library the PEER package
+pc=10          ## Set the number of PEER factors   
+model = PEER()
+  PEER_setPhenoMean(model,as.matrix(dt)) 
+  dim(PEER_getPhenoMean(model))
+  PEER_setAdd_mean(model, TRUE)
+  PEER_setNk(model,peer)   
+  PEER_getNk(model)
+  PEER_update(model)
+  factors = PEER_getX(model)
+  factors=factors[,-1]
+  residuals = PEER_getResiduals(model)
+  write.table(residuals, paste(tissue,&#39;_peer&#39;, pc, &quot;.txt&quot;, sep=&quot;&quot;), quote=F, col.names=F, row.names=F)</code></pre>
+<p>Output: the gene expression residuals, an N*P matrix</p>
+</div>
+<div id="fit-ecco-using-simulated-data" class="section level2">
+<h2>Fit ECCO using simulated data</h2>
+<pre><code>data(exampledata)
+attach(exampledata)
+ind=1
+genename=gene_name[ind]
+gene=M_matrix[,ind]
+geno=snp_raw[[ind]]</code></pre>
+<div id="select-the-instrumental-variable-for-each-gene-with-ecco0" class="section level4">
+<h4>Select the instrumental variable for each gene with ecco0</h4>
+<p>gene expression data format:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Geneid</th>
+<th align="center">Gene1</th>
+<th>Gene2</th>
+<th align="center">..</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">indiv1</td>
+<td align="center">4.91</td>
+<td>4.63</td>
+<td align="center">..</td>
+</tr>
+<tr class="even">
+<td align="center">indiv2</td>
+<td align="center">13.78</td>
+<td>13.14</td>
+<td align="center">..</td>
+</tr>
+<tr class="odd">
+<td align="center">..</td>
+<td align="center">..</td>
+<td>..</td>
+<td align="center">..</td>
+</tr>
+</tbody>
+</table>
+<p>genotype data format:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">snp id</th>
+<th align="center">indiv1</th>
+<th>indiv2</th>
+<th align="center">..</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">snp1</td>
+<td align="center">1</td>
+<td>0</td>
+<td align="center">..</td>
+</tr>
+<tr class="even">
+<td align="center">snp2</td>
+<td align="center">0</td>
+<td>2</td>
+<td align="center">..</td>
+</tr>
+<tr class="odd">
+<td align="center">..</td>
+<td align="center">..</td>
+<td>..</td>
+<td align="center">..</td>
+</tr>
+</tbody>
+</table>
+<pre><code>iv_snp=c()
+  for (ind in 1:P) {
+    tryCatch({
+      gene &lt;- M_matrix[ind,]
+      #geno is a P*N matrix containing all the cis-SNPs for the ind th gene
+      ivsnp=ecco0(gene,genename,gene_name,geno,ind)
+      iv_snp=rbind(iv_snp,ivsnp)
+          },
+    error=function(e){})
+    print (ind)
+  }
+  save(iv_snp,file=paste0(&quot;./cissnp/&quot;,tissue,&quot;/&quot;,chr,&quot;.RData&quot;)) 
+#Output: a matrix containing the cis-SNPs for all P genes</code></pre>
+</div>
+<div id="estimate-overlinebeta-tildebeta-and-p-values-for-overlinebeta." class="section level4">
+<h4>Estimate <span class="math inline">\(\overline{\beta}\)</span>, <span class="math inline">\(\tilde{\beta}\)</span> and p-values for <span class="math inline">\(\overline{\beta}\)</span>.</h4>
+<pre><code>peerlist=c(0,1,2,5,10,15,20,30,40,50,60,70,80,90,100)
+for(num_peer in 1:length(peerlist))
+{
+tryCatch({
+summary&lt;-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+},
+error=function(e){})
+summary_total=rbind(summary_total,summary)
+res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
+}
+res=data.frame(res)</code></pre>
+<p>output format for ecco:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Gene</th>
+<th align="left">PEER</th>
+<th>p-value</th>
+<th align="center">beta_hat</th>
+<th align="center">beta_tilde</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Gene1</td>
+<td align="left">1</td>
+<td>..</td>
+<td align="center">..</td>
+<td align="center">..</td>
+</tr>
+<tr class="even">
+<td align="right">Gene2</td>
+<td align="left">1</td>
+<td>..</td>
+<td align="center">..</td>
+<td align="center">..</td>
+</tr>
+<tr class="odd">
+<td align="right">Gene3</td>
+<td align="left">1</td>
+<td>..</td>
+<td align="center">..</td>
+<td align="center">..</td>
+</tr>
+<tr class="even">
+<td align="right">..</td>
+<td align="left">..</td>
+<td>..</td>
+<td align="center">..</td>
+<td align="center">..</td>
+</tr>
+</tbody>
+</table>
+<p>Until now, we obtain the effect sizes:<span class="math inline">\(\overline{\beta}\)</span> and <span class="math inline">\(\tilde{\beta}\)</span>,</p>
+</div>
+<div id="determine-the-optimal-number-of-peer-factors" class="section level4">
+<h4>Determine the optimal number of PEER factors</h4>
+<pre><code>optimal_num_peer=res[which(res[,1]==max(res[,1])),2]</code></pre>
+<p>…</p>
+</div>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<div id="a-toy-example-for-testing-purposes-only" class="section level4">
+<h4>A toy example for testing purposes only:</h4>
+<pre><code>data(exampledata)
+attach(exampledata)
+N=length(gene_name)
+iv_snp=c()
+for(ind in 1:N)
+{
+tryCatch({
+gene=M_matrix[,ind]
+geno=snp_raw[[ind]]
+genename=gene_name[ind]
+ivsnp=ecco0(gene,genename,gene_name,geno,ind)
+iv_snp=rbind(iv_snp,ivsnp)
+},
+error=function(e){})
+}
+res=c()
+for(num_peer in 1:length(peerlist))
+{
+tryCatch({
+pheno=Y
+gene=M_matrix
+geno=snp_raw
+gene_name=gene_name
+peerlist=c(1,2,5)
+summary&lt;-ecco(pheno,peer[[num_peer]],gene_name,iv_snp,peerlist[num_peer])
+},
+error=function(e){})
+summary_total=rbind(summary_total,summary)
+res=rbind(res,c(cor(as.numeric(summary[,4]),as.numeric(summary[,5])),peerlist[num_peer]))
+}
+res=data.frame(res)
+optimal_num_peer=res[which(res[,1]==max(res[,1])),2]</code></pre>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
