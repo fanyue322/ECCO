@@ -4,7 +4,7 @@
 \alias{ecco0}
 \title{Controlling for Confounding Effects in eQTL Mapping Studies through Joint Differential Expression and Mendelian Randomization Analyses}
 \usage{
-ecco0(gene, genename, gene_name, geno, ind)
+ecco0(gene, genename, gene_name, geno, ind, Y)
 }
 \arguments{
 \item{gene}{the gene expression data.}
@@ -33,7 +33,7 @@ ind=1
 genename=gene_name[ind]
 gene=M_matrix[,ind]
 geno=snp_raw[[ind]]
-ivsnp=ecco0(gene,genename,gene_name,geno,ind)
+result=ecco0(gene,genename,gene_name,geno,ind,Y)
 closeAllConnections()
 detach(exampledata)
 }

@@ -4,7 +4,8 @@
 \name{exampledata}
 \alias{exampledata}
 \title{Example dataset}
-\format{Contains the following objects:
+\format{
+Contains the following objects:
 \describe{
   \item{gene_name}{a vector containg the names of all genes.}
   \item{M_matrix}{a matrix containing the whole gene expression data.}
@@ -12,7 +13,8 @@
   \item{snp_raw}{a data list containing the whole genotype data.}
   \item{Y}{the phenotype data.}
   \item{peerlist}{the number of peer factors to be examined.}
-}}
+}
+}
 \usage{
 data(exampledata)
 }
